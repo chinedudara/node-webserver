@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
+
 let app = express();
 
 app.set('view engine', 'hbs')
@@ -14,9 +16,9 @@ fs.appendFile('server.log', `${new Date().toString()}: ${req.method} ${req.url}\
 console.log(`${new Date().toString()}: ${req.method} ${req.url}`);
 next();
 });
-app.use((req, res, next) => {
-  res.render('maintenance.hbs');
-})
+// app.use((req, res, next) => {
+//   res.render('maintenance.hbs');
+// })
 
 hbs.registerPartials('views/partials');
 hbs.registerHelper('getCurrentYear', () => {
@@ -46,6 +48,6 @@ app.get('/bad', (req, res) => {
   })
 })
 
-app.listen(3000, () => {
-  console.log('Application started on port 3000');
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
 });
